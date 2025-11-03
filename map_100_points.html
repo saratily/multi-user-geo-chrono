@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>San Francisco Bay Area Grand Tour - 100 Points</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            color: #333;
+            margin: 0;
+        }
+        .stats {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .stats span {
+            display: inline-block;
+            margin: 0 20px;
+            color: #666;
+        }
+        #map {
+            height: 600px;
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .legend {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+        .legend h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .legend-item {
+            display: inline-block;
+            margin: 5px 15px 5px 0;
+        }
+        .legend-color {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            vertical-align: middle;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>San Francisco Bay Area Grand Tour - 100 Points</h1>
+    </div>
+
+    
+    <div class="stats">
+        <span><strong>Total Points:</strong> 109</span>
+        <span><strong>Start:</strong> 2025-10-28 08:00</span>
+        <span><strong>End:</strong> 2025-10-28 13:24</span>
+    </div>
+    
+
+    <div id="map"></div>
+
+    <div class="legend">
+        <h3>Legend</h3>
+        <div class="legend-item">
+            <span class="legend-color" style="background-color: #00FF00;"></span>
+            Start Point
+        </div>
+        <div class="legend-item">
+            <span class="legend-color" style="background-color: #FF0000;"></span>
+            End Point
+        </div>
+        <div class="legend-item">
+            <span class="legend-color" style="background-color: #0000FF;"></span>
+            Waypoints
+        </div>
+        <div class="legend-item">
+            <span style="display: inline-block; width: 30px; height: 3px; background-color: #FF0000; margin-right: 8px; vertical-align: middle;"></span>
+            Walking Trail
+        </div>
+    </div>
+
+    <script>
+        let map;
+
+        const points = [
+            
+            {
+                lat:  37.7749 ,
+                lng:  -122.4194 ,
+                timestamp: "2025-10-28 08:00:00",
+                title: "Golden Gate Park Main Entrance",
+                description: "Starting our comprehensive San Francisco tour",
+                index:  0 
+            },
+            
+            {
+                lat:  37.7759 ,
+                lng:  -122.4204 ,
+                timestamp: "2025-10-28 08:03:00",
+                title: "Japanese Tea Garden",
+                description: "Beautiful traditional garden in the park",
+                index:  1 
+            },
+            
+            {
+                lat:  37.7769 ,
+                lng:  -122.4214 ,
+                timestamp: "2025-10-28 08:06:00",
+                title: "Conservatory of Flowers",
+                description: "Victorian glass greenhouse with exotic plants",
+                index:  2 
+            },
+            
+            {
+                lat:  37.7779 ,
+                lng:  -122.4224 ,
+                timestamp: "2025-10-28 08:09:00",
+                title: "Stow Lake",
+                description: "Peaceful lake with paddle boats and walking paths",
+                index:  3 
+            },
+            
+            {
+                lat:  37.7789 ,
+                lng:  -122.4234 ,
+                timestamp: "2025-10-28 08:12:00",
+                title: "Strawberry Hill",
+                description: "Small island in the middle of Stow Lake",
+                index:  4 
+            },
+            
+            {
+                lat:  37.7799 ,
+                lng:  -122.4244 ,
+                timestamp: "2025-10-28 08:15:00",
+                title: "Buffalo Paddock",
+                description: "Home to a small herd of American bison",
+                index:  5 
+            },
+            
+            {
+                lat:  37.7809 ,
+                lng:  -122.4254 ,
+                timestamp: "2025-10-28 08:18:00",
+                title: "Dutch Windmill",
+                description: "Historic windmill at the western edge of the park",
+                index:  6 
+            },
+            
+            {
+                lat:  37.7819 ,
+                lng:  -122.4264 ,
+                timestamp: "2025-10-28 08:21:00",
+                title: "Ocean Beach",
+                description: "Wide sandy beach facing the Pacific Ocean",
+                index:  7 
+            },
+            
+            {
+                lat:  37.7829 ,
+                lng:  -122.4274 ,
+                timestamp: "2025-10-28 08:24:00",
+                title: "Great Highway",
+                description: "Coastal road running along the beach",
+                index:  8 
+            },
+            
+            {
+                lat:  37.7839 ,
+                lng:  -122.4284 ,
+                timestamp: "2025-10-28 08:27:00",
+                title: "Sunset District",
+                description: "Residential neighborhood with colorful houses",
+                index:  9 
+            },
+            
+            {
+                lat:  37.7849 ,
+                lng:  -122.4094 ,
+                timestamp: "2025-10-28 08:30:00",
+                title: "Haight-Ashbury",
+                description: "Historic hippie neighborhood with vintage shops",
+                index:  10 
+            },
+            
+            {
+                lat:  37.7859 ,
+                lng:  -122.4104 ,
+                timestamp: "2025-10-28 08:33:00",
+                title: "Painted Ladies",
+                description: "Famous Victorian houses featured in many movies",
+                index:  11 
+            },
+            
+            {
+                lat:  37.7869 ,
+                lng:  -122.4114 ,
+                timestamp: "2025-10-28 08:36:00",
+                title: "Alamo Square Park",
+                description: "Park offering great views of the Painted Ladies",
+                index:  12 
+            },
+            
+            {
+                lat:  37.7879 ,
+                lng:  -122.4124 ,
+                timestamp: "2025-10-28 08:39:00",
+                title: "Divisadero Street",
+                description: "Trendy street with restaurants and cafes",
+                index:  13 
+            },
+            
+            {
+                lat:  37.7889 ,
+                lng:  -122.4134 ,
+                timestamp: "2025-10-28 08:42:00",
+                title: "Fillmore District",
+                description: "Historic jazz district with music venues",
+                index:  14 
+            },
+            
+            {
+                lat:  37.7899 ,
+                lng:  -122.4144 ,
+                timestamp: "2025-10-28 08:45:00",
+                title: "Japantown",
+                description: "Cultural district with shops and restaurants",
+                index:  15 
+            },
+            
+            {
+                lat:  37.7909 ,
+                lng:  -122.4154 ,
+                timestamp: "2025-10-28 08:48:00",
+                title: "Cathedral Hill",
+                description: "Neighborhood with St. Mary\u0027s Cathedral",
+                index:  16 
+            },
+            
+            {
+                lat:  37.7919 ,
+                lng:  -122.4164 ,
+                timestamp: "2025-10-28 08:51:00",
+                title: "Pacific Heights",
+                description: "Upscale residential area with mansions",
+                index:  17 
+            },
+            
+            {
+                lat:  37.7929 ,
+                lng:  -122.4174 ,
+                timestamp: "2025-10-28 08:54:00",
+                title: "Presidio Heights",
+                description: "Affluent neighborhood near the Presidio",
+                index:  18 
+            },
+            
+            {
+                lat:  37.7939 ,
+                lng:  -122.4184 ,
+                timestamp: "2025-10-28 08:57:00",
+                title: "Laurel Heights",
+                description: "Quiet residential area with shops",
+                index:  19 
+            },
+            
+            {
+                lat:  37.7949 ,
+                lng:  -122.3994 ,
+                timestamp: "2025-10-28 09:00:00",
+                title: "Castro District",
+                description: "Historic LGBTQ\u002b neighborhood with rainbow flags",
+                index:  20 
+            },
+            
+            {
+                lat:  37.7959 ,
+                lng:  -122.4004 ,
+                timestamp: "2025-10-28 09:03:00",
+                title: "Mission Dolores",
+                description: "Historic Spanish mission founded in 1776",
+                index:  21 
+            },
+            
+            {
+                lat:  37.7969 ,
+                lng:  -122.4014 ,
+                timestamp: "2025-10-28 09:06:00",
+                title: "Mission District",
+                description: "Vibrant Latino neighborhood with amazing street art",
+                index:  22 
+            },
+            
+            {
+                lat:  37.7979 ,
+                lng:  -122.4024 ,
+                timestamp: "2025-10-28 09:09:00",
+                title: "Valencia Street",
+                description: "Hip street with bookstores and trendy restaurants",
+                index:  23 
+            },
+            
+            {
+                lat:  37.7989 ,
+                lng:  -122.4034 ,
+                timestamp: "2025-10-28 09:12:00",
+                title: "24th Street BART",
+                description: "Public transit station in the Mission",
+                index:  24 
+            },
+            
+            {
+                lat:  37.7999 ,
+                lng:  -122.4044 ,
+                timestamp: "2025-10-28 09:15:00",
+                title: "Bernal Heights",
+                description: "Hilltop neighborhood with panoramic city views",
+                index:  25 
+            },
+            
+            {
+                lat:  37.8009 ,
+                lng:  -122.4054 ,
+                timestamp: "2025-10-28 09:18:00",
+                title: "Glen Park",
+                description: "Small village-like neighborhood with local shops",
+                index:  26 
+            },
+            
+            {
+                lat:  37.8019 ,
+                lng:  -122.4064 ,
+                timestamp: "2025-10-28 09:21:00",
+                title: "Diamond Heights",
+                description: "Residential area with mid-century architecture",
+                index:  27 
+            },
+            
+            {
+                lat:  37.8029 ,
+                lng:  -122.4074 ,
+                timestamp: "2025-10-28 09:24:00",
+                title: "Noe Valley",
+                description: "Family-friendly neighborhood with Victorian homes",
+                index:  28 
+            },
+            
+            {
+                lat:  37.8039 ,
+                lng:  -122.4084 ,
+                timestamp: "2025-10-28 09:27:00",
+                title: "Twin Peaks",
+                description: "High vantage point with 360-degree city views",
+                index:  29 
+            },
+            
+            {
+                lat:  37.8049 ,
+                lng:  -122.3894 ,
+                timestamp: "2025-10-28 09:30:00",
+                title: "SOMA (South of Market)",
+                description: "Business and tech district with skyscrapers",
+                index:  30 
+            },
+            
+            {
+                lat:  37.8059 ,
+                lng:  -122.3904 ,
+                timestamp: "2025-10-28 09:33:00",
+                title: "Yerba Buena Gardens",
+                description: "Urban park with museums and performance spaces",
+                index:  31 
+            },
+            
+            {
+                lat:  37.8069 ,
+                lng:  -122.3914 ,
+                timestamp: "2025-10-28 09:36:00",
+                title: "Moscone Center",
+                description: "Large convention center hosting tech conferences",
+                index:  32 
+            },
+            
+            {
+                lat:  37.8079 ,
+                lng:  -122.3924 ,
+                timestamp: "2025-10-28 09:39:00",
+                title: "Museum of Modern Art",
+                description: "Premier modern art museum (SFMOMA)",
+                index:  33 
+            },
+            
+            {
+                lat:  37.8089 ,
+                lng:  -122.3934 ,
+                timestamp: "2025-10-28 09:42:00",
+                title: "Union Square",
+                description: "Main shopping district with department stores",
+                index:  34 
+            },
+            
+            {
+                lat:  37.8099 ,
+                lng:  -122.3944 ,
+                timestamp: "2025-10-28 09:45:00",
+                title: "Chinatown Gate",
+                description: "Entrance to the largest Chinatown outside Asia",
+                index:  35 
+            },
+            
+            {
+                lat:  37.8109 ,
+                lng:  -122.3954 ,
+                timestamp: "2025-10-28 09:48:00",
+                title: "Grant Avenue",
+                description: "Main tourist street in Chinatown",
+                index:  36 
+            },
+            
+            {
+                lat:  37.8119 ,
+                lng:  -122.3964 ,
+                timestamp: "2025-10-28 09:51:00",
+                title: "Portsmouth Square",
+                description: "Historic square known as the Heart of Chinatown",
+                index:  37 
+            },
+            
+            {
+                lat:  37.8129 ,
+                lng:  -122.3974 ,
+                timestamp: "2025-10-28 09:54:00",
+                title: "Stockton Street",
+                description: "Authentic local shopping street in Chinatown",
+                index:  38 
+            },
+            
+            {
+                lat:  37.8139 ,
+                lng:  -122.3984 ,
+                timestamp: "2025-10-28 09:57:00",
+                title: "North Beach",
+                description: "Italian-American neighborhood with cafes",
+                index:  39 
+            },
+            
+            {
+                lat:  37.8149 ,
+                lng:  -122.3794 ,
+                timestamp: "2025-10-28 10:00:00",
+                title: "Coit Tower",
+                description: "Art Deco tower with murals and city views",
+                index:  40 
+            },
+            
+            {
+                lat:  37.8159 ,
+                lng:  -122.3804 ,
+                timestamp: "2025-10-28 10:03:00",
+                title: "Telegraph Hill",
+                description: "Steep hill crowned by Coit Tower",
+                index:  41 
+            },
+            
+            {
+                lat:  37.8169 ,
+                lng:  -122.3814 ,
+                timestamp: "2025-10-28 10:06:00",
+                title: "Lombard Street",
+                description: "The most crooked street in the world",
+                index:  42 
+            },
+            
+            {
+                lat:  37.8179 ,
+                lng:  -122.3824 ,
+                timestamp: "2025-10-28 10:09:00",
+                title: "Russian Hill",
+                description: "Upscale neighborhood with steep streets",
+                index:  43 
+            },
+            
+            {
+                lat:  37.8189 ,
+                lng:  -122.3834 ,
+                timestamp: "2025-10-28 10:12:00",
+                title: "Polk Street",
+                description: "Trendy shopping and dining corridor",
+                index:  44 
+            },
+            
+            {
+                lat:  37.8044 ,
+                lng:  -122.2711 ,
+                timestamp: "2025-10-28 10:15:00",
+                title: "Bay Bridge",
+                description: "Iconic bridge connecting SF to Oakland",
+                index:  45 
+            },
+            
+            {
+                lat:  37.8054 ,
+                lng:  -122.2721 ,
+                timestamp: "2025-10-28 10:18:00",
+                title: "Treasure Island",
+                description: "Artificial island with great city views",
+                index:  46 
+            },
+            
+            {
+                lat:  37.8064 ,
+                lng:  -122.2731 ,
+                timestamp: "2025-10-28 10:21:00",
+                title: "Bay Bridge East Span",
+                description: "Eastern section of the Bay Bridge",
+                index:  47 
+            },
+            
+            {
+                lat:  37.8074 ,
+                lng:  -122.2741 ,
+                timestamp: "2025-10-28 10:24:00",
+                title: "Oakland Bay Trail",
+                description: "Waterfront trail on the Oakland side",
+                index:  48 
+            },
+            
+            {
+                lat:  37.8084 ,
+                lng:  -122.2751 ,
+                timestamp: "2025-10-28 10:27:00",
+                title: "Jack London Square",
+                description: "Waterfront dining and entertainment district",
+                index:  49 
+            },
+            
+            {
+                lat:  37.7944 ,
+                lng:  -122.2611 ,
+                timestamp: "2025-10-28 10:30:00",
+                title: "Embarcadero",
+                description: "Waterfront promenade with stunning bay views",
+                index:  50 
+            },
+            
+            {
+                lat:  37.7954 ,
+                lng:  -122.2621 ,
+                timestamp: "2025-10-28 10:33:00",
+                title: "AT\u0026T Park (Oracle Park)",
+                description: "Home stadium of the San Francisco Giants",
+                index:  51 
+            },
+            
+            {
+                lat:  37.7964 ,
+                lng:  -122.2631 ,
+                timestamp: "2025-10-28 10:36:00",
+                title: "Mission Bay",
+                description: "Developing neighborhood with new condos",
+                index:  52 
+            },
+            
+            {
+                lat:  37.7974 ,
+                lng:  -122.2641 ,
+                timestamp: "2025-10-28 10:39:00",
+                title: "UCSF Mission Bay",
+                description: "University of California medical campus",
+                index:  53 
+            },
+            
+            {
+                lat:  37.7984 ,
+                lng:  -122.2651 ,
+                timestamp: "2025-10-28 10:42:00",
+                title: "Dogpatch",
+                description: "Industrial neighborhood becoming trendy",
+                index:  54 
+            },
+            
+            {
+                lat:  37.7994 ,
+                lng:  -122.2661 ,
+                timestamp: "2025-10-28 10:45:00",
+                title: "Potrero Hill",
+                description: "Sunny residential neighborhood with great views",
+                index:  55 
+            },
+            
+            {
+                lat:  37.8004 ,
+                lng:  -122.2671 ,
+                timestamp: "2025-10-28 10:48:00",
+                title: "Showplace Square",
+                description: "Design district with furniture showrooms",
+                index:  56 
+            },
+            
+            {
+                lat:  37.8014 ,
+                lng:  -122.2681 ,
+                timestamp: "2025-10-28 10:51:00",
+                title: "Bayview District",
+                description: "Diverse neighborhood undergoing gentrification",
+                index:  57 
+            },
+            
+            {
+                lat:  37.8024 ,
+                lng:  -122.2691 ,
+                timestamp: "2025-10-28 10:54:00",
+                title: "Candlestick Point",
+                description: "Former home of the 49ers stadium",
+                index:  58 
+            },
+            
+            {
+                lat:  37.8034 ,
+                lng:  -122.2701 ,
+                timestamp: "2025-10-28 10:57:00",
+                title: "Hunters Point",
+                description: "Waterfront community with industrial history",
+                index:  59 
+            },
+            
+            {
+                lat:  37.7844 ,
+                lng:  -122.2511 ,
+                timestamp: "2025-10-28 11:00:00",
+                title: "Ferry Building",
+                description: "Historic marketplace with artisanal food vendors",
+                index:  60 
+            },
+            
+            {
+                lat:  37.7854 ,
+                lng:  -122.2521 ,
+                timestamp: "2025-10-28 11:03:00",
+                title: "Embarcadero Plaza",
+                description: "Open space with farmers market",
+                index:  61 
+            },
+            
+            {
+                lat:  37.7864 ,
+                lng:  -122.2531 ,
+                timestamp: "2025-10-28 11:06:00",
+                title: "Rincon Hill",
+                description: "High-rise residential neighborhood",
+                index:  62 
+            },
+            
+            {
+                lat:  37.7874 ,
+                lng:  -122.2541 ,
+                timestamp: "2025-10-28 11:09:00",
+                title: "Folsom Street",
+                description: "Major street running through SOMA",
+                index:  63 
+            },
+            
+            {
+                lat:  37.7884 ,
+                lng:  -122.2551 ,
+                timestamp: "2025-10-28 11:12:00",
+                title: "Harrison Street",
+                description: "Industrial street with warehouses and lofts",
+                index:  64 
+            },
+            
+            {
+                lat:  37.7894 ,
+                lng:  -122.2561 ,
+                timestamp: "2025-10-28 11:15:00",
+                title: "Bryant Street",
+                description: "Another major SOMA thoroughfare",
+                index:  65 
+            },
+            
+            {
+                lat:  37.7904 ,
+                lng:  -122.2571 ,
+                timestamp: "2025-10-28 11:18:00",
+                title: "16th Street Mission",
+                description: "Vibrant corridor in the Mission District",
+                index:  66 
+            },
+            
+            {
+                lat:  37.7914 ,
+                lng:  -122.2581 ,
+                timestamp: "2025-10-28 11:21:00",
+                title: "Clarion Alley",
+                description: "Famous alley with constantly changing murals",
+                index:  67 
+            },
+            
+            {
+                lat:  37.7924 ,
+                lng:  -122.2591 ,
+                timestamp: "2025-10-28 11:24:00",
+                title: "Women\u0027s Building",
+                description: "Community center with beautiful facade mural",
+                index:  68 
+            },
+            
+            {
+                lat:  37.7934 ,
+                lng:  -122.2601 ,
+                timestamp: "2025-10-28 11:27:00",
+                title: "Balmy Alley",
+                description: "Another alley famous for its political murals",
+                index:  69 
+            },
+            
+            {
+                lat:  37.7744 ,
+                lng:  -122.2411 ,
+                timestamp: "2025-10-28 11:30:00",
+                title: "Pier 39",
+                description: "Popular tourist destination with shops and restaurants",
+                index:  70 
+            },
+            
+            {
+                lat:  37.7754 ,
+                lng:  -122.2421 ,
+                timestamp: "2025-10-28 11:33:00",
+                title: "Aquarium of the Bay",
+                description: "Underwater tunnel aquarium at Pier 39",
+                index:  71 
+            },
+            
+            {
+                lat:  37.7764 ,
+                lng:  -122.2431 ,
+                timestamp: "2025-10-28 11:36:00",
+                title: "Sea Lions at Pier 39",
+                description: "Famous colony of California sea lions",
+                index:  72 
+            },
+            
+            {
+                lat:  37.7774 ,
+                lng:  -122.2441 ,
+                timestamp: "2025-10-28 11:39:00",
+                title: "Pier 41",
+                description: "Ferry terminal for Alcatraz and Angel Island",
+                index:  73 
+            },
+            
+            {
+                lat:  37.7784 ,
+                lng:  -122.2451 ,
+                timestamp: "2025-10-28 11:42:00",
+                title: "Pier 43",
+                description: "Working pier with fishing boats",
+                index:  74 
+            },
+            
+            {
+                lat:  37.7794 ,
+                lng:  -122.2461 ,
+                timestamp: "2025-10-28 11:45:00",
+                title: "Pier 45",
+                description: "Historic pier with maritime exhibits",
+                index:  75 
+            },
+            
+            {
+                lat:  37.7804 ,
+                lng:  -122.2471 ,
+                timestamp: "2025-10-28 11:48:00",
+                title: "Fisherman\u0027s Wharf Sign",
+                description: "Iconic neon sign marking the area",
+                index:  76 
+            },
+            
+            {
+                lat:  37.7814 ,
+                lng:  -122.2481 ,
+                timestamp: "2025-10-28 11:51:00",
+                title: "Alioto\u0027s Restaurant",
+                description: "Famous seafood restaurant on the wharf",
+                index:  77 
+            },
+            
+            {
+                lat:  37.7824 ,
+                lng:  -122.2491 ,
+                timestamp: "2025-10-28 11:54:00",
+                title: "Scoma\u0027s Restaurant",
+                description: "Another renowned waterfront dining spot",
+                index:  78 
+            },
+            
+            {
+                lat:  37.8055 ,
+                lng:  -122.4194 ,
+                timestamp: "2025-10-28 11:57:00",
+                title: "Fisherman\u0027s Wharf",
+                description: "Historic fishing harbor turned tourist area",
+                index:  79 
+            },
+            
+            {
+                lat:  37.8065 ,
+                lng:  -122.4204 ,
+                timestamp: "2025-10-28 12:00:00",
+                title: "Hyde Street Pier",
+                description: "Historic ships museum and maritime park",
+                index:  80 
+            },
+            
+            {
+                lat:  37.8075 ,
+                lng:  -122.4214 ,
+                timestamp: "2025-10-28 12:03:00",
+                title: "Aquatic Park",
+                description: "Beach and park popular with swimmers",
+                index:  81 
+            },
+            
+            {
+                lat:  37.8085 ,
+                lng:  -122.4224 ,
+                timestamp: "2025-10-28 12:06:00",
+                title: "Ghirardelli Square",
+                description: "Former chocolate factory turned shopping center",
+                index:  82 
+            },
+            
+            {
+                lat:  37.8095 ,
+                lng:  -122.4234 ,
+                timestamp: "2025-10-28 12:09:00",
+                title: "Fort Mason",
+                description: "Former military base now cultural center",
+                index:  83 
+            },
+            
+            {
+                lat:  37.8105 ,
+                lng:  -122.4244 ,
+                timestamp: "2025-10-28 12:12:00",
+                title: "Crissy Field",
+                description: "Large park with Golden Gate Bridge views",
+                index:  84 
+            },
+            
+            {
+                lat:  37.8115 ,
+                lng:  -122.4254 ,
+                timestamp: "2025-10-28 12:15:00",
+                title: "Palace of Fine Arts",
+                description: "Beautiful Beaux-Arts monument and park",
+                index:  85 
+            },
+            
+            {
+                lat:  37.8125 ,
+                lng:  -122.4264 ,
+                timestamp: "2025-10-28 12:18:00",
+                title: "Presidio",
+                description: "Large park and former military base",
+                index:  86 
+            },
+            
+            {
+                lat:  37.8135 ,
+                lng:  -122.4274 ,
+                timestamp: "2025-10-28 12:21:00",
+                title: "Presidio Golf Course",
+                description: "Public golf course in the Presidio",
+                index:  87 
+            },
+            
+            {
+                lat:  37.8145 ,
+                lng:  -122.4284 ,
+                timestamp: "2025-10-28 12:24:00",
+                title: "Golden Gate Bridge Welcome Center",
+                description: "Visitor center for the famous bridge",
+                index:  88 
+            },
+            
+            {
+                lat:  37.8155 ,
+                lng:  -122.4294 ,
+                timestamp: "2025-10-28 12:27:00",
+                title: "Battery Spencer",
+                description: "Historic military battery with bridge views",
+                index:  89 
+            },
+            
+            {
+                lat:  37.8165 ,
+                lng:  -122.4304 ,
+                timestamp: "2025-10-28 12:30:00",
+                title: "Golden Gate Bridge South Tower",
+                description: "Starting point of the famous span",
+                index:  90 
+            },
+            
+            {
+                lat:  37.8175 ,
+                lng:  -122.4314 ,
+                timestamp: "2025-10-28 12:33:00",
+                title: "Golden Gate Bridge Mid-Span",
+                description: "Center of the iconic suspension bridge",
+                index:  91 
+            },
+            
+            {
+                lat:  37.8185 ,
+                lng:  -122.4324 ,
+                timestamp: "2025-10-28 12:36:00",
+                title: "Golden Gate Bridge North Tower",
+                description: "Marin County side of the bridge",
+                index:  92 
+            },
+            
+            {
+                lat:  37.8195 ,
+                lng:  -122.4334 ,
+                timestamp: "2025-10-28 12:39:00",
+                title: "Marin Headlands",
+                description: "Rolling hills with spectacular bay views",
+                index:  93 
+            },
+            
+            {
+                lat:  37.8205 ,
+                lng:  -122.4344 ,
+                timestamp: "2025-10-28 12:42:00",
+                title: "Hawk Hill",
+                description: "Popular spot for watching migrating birds",
+                index:  94 
+            },
+            
+            {
+                lat:  37.8215 ,
+                lng:  -122.4354 ,
+                timestamp: "2025-10-28 12:45:00",
+                title: "Point Bonita Lighthouse",
+                description: "Historic lighthouse on rocky promontory",
+                index:  95 
+            },
+            
+            {
+                lat:  37.8225 ,
+                lng:  -122.4364 ,
+                timestamp: "2025-10-28 12:48:00",
+                title: "Rodeo Beach",
+                description: "Wild beach in the Marin Headlands",
+                index:  96 
+            },
+            
+            {
+                lat:  37.8235 ,
+                lng:  -122.4374 ,
+                timestamp: "2025-10-28 12:51:00",
+                title: "Tennessee Valley",
+                description: "Hiking trail leading to secluded beach",
+                index:  97 
+            },
+            
+            {
+                lat:  37.8245 ,
+                lng:  -122.4384 ,
+                timestamp: "2025-10-28 12:54:00",
+                title: "Muir Woods Approach",
+                description: "Road leading to the famous redwood forest",
+                index:  98 
+            },
+            
+            {
+                lat:  37.8255 ,
+                lng:  -122.4394 ,
+                timestamp: "2025-10-28 12:57:00",
+                title: "Mill Valley",
+                description: "Charming Marin County town with mountain views",
+                index:  99 
+            },
+            
+            {
+                lat:  37.8265 ,
+                lng:  -122.4404 ,
+                timestamp: "2025-10-28 13:00:00",
+                title: "Mount Tamalpais State Park",
+                description: "Mountain park with hiking trails and vistas",
+                index:  100 
+            },
+            
+            {
+                lat:  37.8275 ,
+                lng:  -122.4414 ,
+                timestamp: "2025-10-28 13:03:00",
+                title: "Stinson Beach",
+                description: "Popular beach town north of the city",
+                index:  101 
+            },
+            
+            {
+                lat:  37.8285 ,
+                lng:  -122.4424 ,
+                timestamp: "2025-10-28 13:06:00",
+                title: "Bolinas",
+                description: "Artistic coastal community known for privacy",
+                index:  102 
+            },
+            
+            {
+                lat:  37.8295 ,
+                lng:  -122.4434 ,
+                timestamp: "2025-10-28 13:09:00",
+                title: "Point Reyes Station",
+                description: "Small town gateway to Point Reyes National Seashore",
+                index:  103 
+            },
+            
+            {
+                lat:  37.8305 ,
+                lng:  -122.4444 ,
+                timestamp: "2025-10-28 13:12:00",
+                title: "Olema",
+                description: "Historic town in the Point Reyes area",
+                index:  104 
+            },
+            
+            {
+                lat:  37.8315 ,
+                lng:  -122.4454 ,
+                timestamp: "2025-10-28 13:15:00",
+                title: "Bear Valley Visitor Center",
+                description: "Information center for Point Reyes",
+                index:  105 
+            },
+            
+            {
+                lat:  37.8325 ,
+                lng:  -122.4464 ,
+                timestamp: "2025-10-28 13:18:00",
+                title: "Point Reyes Lighthouse",
+                description: "Historic lighthouse on dramatic coastline",
+                index:  106 
+            },
+            
+            {
+                lat:  37.8335 ,
+                lng:  -122.4474 ,
+                timestamp: "2025-10-28 13:21:00",
+                title: "Drakes Beach",
+                description: "Sandy beach in Point Reyes National Seashore",
+                index:  107 
+            },
+            
+            {
+                lat:  37.8345 ,
+                lng:  -122.4484 ,
+                timestamp: "2025-10-28 13:24:00",
+                title: "Chimney Rock",
+                description: "Scenic overlook and elephant seal viewing area",
+                index:  108 
+            },
+            
+        ];
+
+        function initMap() {
+            if (points.length === 0) {
+                document.getElementById('map').innerHTML = '<div style="text-align: center; padding: 50px; color: #666;">No GPS points to display</div>';
+                return;
+            }
+
+            
+            const center = calculateCenter(points);
+            
+            map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 13,
+                center: center,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                zoomControl:  true ,
+                streetViewControl:  true ,
+                fullscreenControl:  true ,
+                mapTypeControl:  true ,
+                scaleControl:  true 
+            });
+
+            
+            addMarkers();
+            
+            
+            
+            addWalkingPath();
+            
+            
+            
+            fitMapToBounds();
+        }
+
+        function calculateCenter(points) {
+            let lat = 0, lng = 0;
+            points.forEach(point => {
+                lat += point.lat;
+                lng += point.lng;
+            });
+            return {
+                lat: lat / points.length,
+                lng: lng / points.length
+            };
+        }
+
+        function addMarkers() {
+            points.forEach((point, index) => {
+                let icon, title = point.title;
+
+                
+                if (index === 0) {
+                    icon = createMarkerIcon('#00FF00', 'S', 32);
+                    title = "START - " + title;
+                } else if (index === points.length - 1) {
+                    icon = createMarkerIcon('#FF0000', 'E', 32);
+                    title = "END - " + title;
+                } else {
+                    icon = createMarkerIcon('#0000FF', (index + 1).toString(), 24);
+                }
+
+                const marker = new google.maps.Marker({
+                    position: { lat: point.lat, lng: point.lng },
+                    map: map,
+                    title: title,
+                    icon: icon
+                });
+
+                
+                
+                const infoWindow = new google.maps.InfoWindow({
+                    content: createInfoWindowContent(point, title, index),
+                    maxWidth:  300 
+                });
+
+                marker.addListener("click", () => {
+                    infoWindow.open(map, marker);
+                });
+                
+            });
+        }
+
+        function createMarkerIcon(color, text, size) {
+            return {
+                url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(
+                    '<svg xmlns="http://www.w3.org/2000/svg" width="' + size + '" height="' + size + '" viewBox="0 0 ' + size + ' ' + size + '">' +
+                    '<circle cx="' + (size/2) + '" cy="' + (size/2) + '" r="' + (size/2-2) + '" fill="' + color + '" stroke="#000" stroke-width="2"/>' +
+                    '<text x="' + (size/2) + '" y="' + (size/2+4) + '" text-anchor="middle" fill="white" font-family="Arial" font-size="' + (size/3) + '" font-weight="bold">' + text + '</text>' +
+                    '</svg>'
+                ),
+                scaledSize: new google.maps.Size(size, size),
+                anchor: new google.maps.Point(size/2, size/2)
+            };
+        }
+
+        function createInfoWindowContent(point, title, index) {
+            return `
+                <div style="font-family: Arial, sans-serif; min-width: 200px;">
+                    <h3 style="margin: 0 0 10px 0; color: #333;">${title}</h3>
+                    <p><strong>Time:</strong> ${point.timestamp}</p>
+                    <p><strong>Location:</strong> ${point.lat.toFixed(6)}, ${point.lng.toFixed(6)}</p>
+                    <p><strong>Sequence:</strong> ${index + 1} of ${points.length}</p>
+                    ${point.description ? '<p><strong>Description:</strong> ' + point.description + '</p>' : ''}
+                </div>
+            `;
+        }
+
+        function addWalkingPath() {
+            const pathCoordinates = points.map(point => ({ lat: point.lat, lng: point.lng }));
+
+            const walkingPath = new google.maps.Polyline({
+                path: pathCoordinates,
+                geodesic: true,
+                strokeColor: "#FF0000",
+                strokeOpacity:  0.8 ,
+                strokeWeight:  3 ,
+            });
+
+            walkingPath.setMap(map);
+
+            
+            
+            const arrowSymbol = {
+                path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                scale: 3,
+                strokeColor: "#FF0000",
+                fillColor: "#FF0000",
+                fillOpacity: 1
+            };
+
+            const arrowPath = new google.maps.Polyline({
+                path: pathCoordinates,
+                geodesic: true,
+                strokeOpacity: 0,
+                icons: [{
+                    icon: arrowSymbol,
+                    offset: '100%',
+                    repeat: '100px'
+                }],
+            });
+
+            arrowPath.setMap(map);
+            
+        }
+
+        function fitMapToBounds() {
+            
+            const bounds = new google.maps.LatLngBounds();
+            points.forEach(point => {
+                bounds.extend({ lat: point.lat, lng: point.lng });
+            });
+            map.fitBounds(bounds);
+            
+            
+            google.maps.event.addListenerOnce(map, 'bounds_changed', function() {
+                if (map.getZoom() > 15) {
+                    map.setZoom(15);
+                }
+            });
+            
+        }
+
+        
+        window.initMap = initMap;
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA36sPo-lDEpFc7l0Ru_p2_B0YBWTqAyoU&callback=initMap&libraries=geometry%2cplaces"></script>
+</body>
+</html>

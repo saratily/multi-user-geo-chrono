@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Geo-Chrono GPS Track Visualization</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            color: #333;
+            margin: 0;
+        }
+        .stats {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .stats span {
+            display: inline-block;
+            margin: 0 20px;
+            color: #666;
+        }
+        #map {
+            height: 600px;
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .legend {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+        .legend h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .legend-item {
+            display: inline-block;
+            margin: 5px 15px 5px 0;
+        }
+        .legend-color {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            vertical-align: middle;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Geo-Chrono GPS Track Visualization</h1>
+    </div>
+
+    
+    <div class="stats">
+        <span><strong>Total Points:</strong> 10</span>
+        <span><strong>Start:</strong> 2025-10-28 09:00</span>
+        <span><strong>End:</strong> 2025-10-28 11:15</span>
+    </div>
+    
+
+    <div id="map"></div>
+
+    <div class="legend">
+        <h3>Legend</h3>
+        <div class="legend-item">
+            <span class="legend-color" style="background-color: #00FF00;"></span>
+            Start Point
+        </div>
+        <div class="legend-item">
+            <span class="legend-color" style="background-color: #FF0000;"></span>
+            End Point
+        </div>
+        <div class="legend-item">
+            <span class="legend-color" style="background-color: #0000FF;"></span>
+            Waypoints
+        </div>
+        <div class="legend-item">
+            <span style="display: inline-block; width: 30px; height: 3px; background-color: #FF0000; margin-right: 8px; vertical-align: middle;"></span>
+            Walking Trail
+        </div>
+    </div>
+
+    <script>
+        let map;
+
+        const points = [
+            
+            {
+                lat:  37.7749 ,
+                lng:  -122.4194 ,
+                timestamp: "2025-10-28 09:00:00",
+                title: "Golden Gate Park",
+                description: "Starting point of our walking tour",
+                index:  0 
+            },
+            
+            {
+                lat:  37.7849 ,
+                lng:  -122.4094 ,
+                timestamp: "2025-10-28 09:15:00",
+                title: "Haight-Ashbury",
+                description: "Historic neighborhood visit",
+                index:  1 
+            },
+            
+            {
+                lat:  37.7949 ,
+                lng:  -122.3994 ,
+                timestamp: "2025-10-28 09:30:00",
+                title: "Castro District",
+                description: "Exploring the vibrant Castro area",
+                index:  2 
+            },
+            
+            {
+                lat:  37.8049 ,
+                lng:  -122.3894 ,
+                timestamp: "2025-10-28 09:45:00",
+                title: "Mission District",
+                description: "Checking out street art and tacos",
+                index:  3 
+            },
+            
+            {
+                lat:  37.8149 ,
+                lng:  -122.3794 ,
+                timestamp: "2025-10-28 10:00:00",
+                title: "SOMA",
+                description: "South of Market business district",
+                index:  4 
+            },
+            
+            {
+                lat:  37.8044 ,
+                lng:  -122.2711 ,
+                timestamp: "2025-10-28 10:15:00",
+                title: "Bay Bridge",
+                description: "Walking towards the bridge",
+                index:  5 
+            },
+            
+            {
+                lat:  37.7944 ,
+                lng:  -122.2611 ,
+                timestamp: "2025-10-28 10:30:00",
+                title: "Embarcadero",
+                description: "Waterfront promenade",
+                index:  6 
+            },
+            
+            {
+                lat:  37.7844 ,
+                lng:  -122.2511 ,
+                timestamp: "2025-10-28 10:45:00",
+                title: "Ferry Building",
+                description: "Historic marketplace",
+                index:  7 
+            },
+            
+            {
+                lat:  37.7744 ,
+                lng:  -122.2411 ,
+                timestamp: "2025-10-28 11:00:00",
+                title: "Pier 39",
+                description: "Tourist destination with sea lions",
+                index:  8 
+            },
+            
+            {
+                lat:  37.8055 ,
+                lng:  -122.4194 ,
+                timestamp: "2025-10-28 11:15:00",
+                title: "Fisherman\u0027s Wharf",
+                description: "End of our walking tour",
+                index:  9 
+            },
+            
+        ];
+
+        function initMap() {
+            if (points.length === 0) {
+                document.getElementById('map').innerHTML = '<div style="text-align: center; padding: 50px; color: #666;">No GPS points to display</div>';
+                return;
+            }
+
+            
+            const center = calculateCenter(points);
+            
+            map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 13,
+                center: center,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                zoomControl:  true ,
+                streetViewControl:  true ,
+                fullscreenControl:  true ,
+                mapTypeControl:  true ,
+                scaleControl:  true 
+            });
+
+            
+            addMarkers();
+            
+            
+            
+            addWalkingPath();
+            
+            
+            
+            fitMapToBounds();
+        }
+
+        function calculateCenter(points) {
+            let lat = 0, lng = 0;
+            points.forEach(point => {
+                lat += point.lat;
+                lng += point.lng;
+            });
+            return {
+                lat: lat / points.length,
+                lng: lng / points.length
+            };
+        }
+
+        function addMarkers() {
+            points.forEach((point, index) => {
+                let icon, title = point.title;
+
+                
+                if (index === 0) {
+                    icon = createMarkerIcon('#00FF00', 'S', 32);
+                    title = "START - " + title;
+                } else if (index === points.length - 1) {
+                    icon = createMarkerIcon('#FF0000', 'E', 32);
+                    title = "END - " + title;
+                } else {
+                    icon = createMarkerIcon('#0000FF', (index + 1).toString(), 24);
+                }
+
+                const marker = new google.maps.Marker({
+                    position: { lat: point.lat, lng: point.lng },
+                    map: map,
+                    title: title,
+                    icon: icon
+                });
+
+                
+                
+                const infoWindow = new google.maps.InfoWindow({
+                    content: createInfoWindowContent(point, title, index),
+                    maxWidth:  300 
+                });
+
+                marker.addListener("click", () => {
+                    infoWindow.open(map, marker);
+                });
+                
+            });
+        }
+
+        function createMarkerIcon(color, text, size) {
+            return {
+                url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(
+                    '<svg xmlns="http://www.w3.org/2000/svg" width="' + size + '" height="' + size + '" viewBox="0 0 ' + size + ' ' + size + '">' +
+                    '<circle cx="' + (size/2) + '" cy="' + (size/2) + '" r="' + (size/2-2) + '" fill="' + color + '" stroke="#000" stroke-width="2"/>' +
+                    '<text x="' + (size/2) + '" y="' + (size/2+4) + '" text-anchor="middle" fill="white" font-family="Arial" font-size="' + (size/3) + '" font-weight="bold">' + text + '</text>' +
+                    '</svg>'
+                ),
+                scaledSize: new google.maps.Size(size, size),
+                anchor: new google.maps.Point(size/2, size/2)
+            };
+        }
+
+        function createInfoWindowContent(point, title, index) {
+            return `
+                <div style="font-family: Arial, sans-serif; min-width: 200px;">
+                    <h3 style="margin: 0 0 10px 0; color: #333;">${title}</h3>
+                    <p><strong>Time:</strong> ${point.timestamp}</p>
+                    <p><strong>Location:</strong> ${point.lat.toFixed(6)}, ${point.lng.toFixed(6)}</p>
+                    <p><strong>Sequence:</strong> ${index + 1} of ${points.length}</p>
+                    ${point.description ? '<p><strong>Description:</strong> ' + point.description + '</p>' : ''}
+                </div>
+            `;
+        }
+
+        function addWalkingPath() {
+            const pathCoordinates = points.map(point => ({ lat: point.lat, lng: point.lng }));
+
+            const walkingPath = new google.maps.Polyline({
+                path: pathCoordinates,
+                geodesic: true,
+                strokeColor: "#FF0000",
+                strokeOpacity:  0.8 ,
+                strokeWeight:  3 ,
+            });
+
+            walkingPath.setMap(map);
+
+            
+            
+            const arrowSymbol = {
+                path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                scale: 3,
+                strokeColor: "#FF0000",
+                fillColor: "#FF0000",
+                fillOpacity: 1
+            };
+
+            const arrowPath = new google.maps.Polyline({
+                path: pathCoordinates,
+                geodesic: true,
+                strokeOpacity: 0,
+                icons: [{
+                    icon: arrowSymbol,
+                    offset: '100%',
+                    repeat: '100px'
+                }],
+            });
+
+            arrowPath.setMap(map);
+            
+        }
+
+        function fitMapToBounds() {
+            
+            const bounds = new google.maps.LatLngBounds();
+            points.forEach(point => {
+                bounds.extend({ lat: point.lat, lng: point.lng });
+            });
+            map.fitBounds(bounds);
+            
+            
+            google.maps.event.addListenerOnce(map, 'bounds_changed', function() {
+                if (map.getZoom() > 15) {
+                    map.setZoom(15);
+                }
+            });
+            
+        }
+
+        
+        window.initMap = initMap;
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA36sPo-lDEpFc7l0Ru_p2_B0YBWTqAyoU&callback=initMap&libraries=geometry%2cplaces"></script>
+</body>
+</html>

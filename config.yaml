@@ -1,0 +1,291 @@
+# Geo-Chrono Configuration File
+# Configuration for generating interactive Google Maps from GPS coordinate data
+
+# Google Maps API Configuration
+google_maps:
+  # Your Google Maps JavaScript API key (required)
+  api_key: "${GOOGLE_MAPS_API_KEY}"
+  
+  # Google Maps API version to use
+  api_version: "3.54"
+  
+  # Additional libraries to load (optional)
+  libraries:
+    - geometry
+    - places
+
+# Input Data Configuration
+input:
+  # Path to the input CSV file containing coordinate data
+  csv_file: "data/coordinates.csv"
+  
+  # CSV format configuration
+  csv_format:
+    # Column names for required fields
+    timestamp_column: "timestamp"
+    latitude_column: "latitude" 
+    longitude_column: "longitude"
+    
+    # Optional columns
+    title_column: "title"           # Custom marker title
+    description_column: "description" # Custom marker description
+    category_column: "category"     # For marker grouping/coloring
+    
+    # CSV parsing options
+    has_header: true
+    delimiter: ","
+    skip_rows: 0
+
+# Output Configuration  
+output:
+  # Output HTML file path
+  html_file: "map.html"
+  
+  # Enable debug mode (generates additional log files)
+  debug: false
+  
+  # Generate KML export alongside HTML
+  export_kml: false
+  kml_file: "route.kml"
+
+# Map Display Configuration
+map:
+  # Map title displayed in the HTML page
+  title: "Geo-Chrono GPS Track Visualization"
+  
+  # Map dimensions
+  width: "100%"
+  height: "600px"
+  
+  # Initial map view settings
+  initial_view:
+    # Center coordinates (will auto-calculate from data if not specified)
+    center:
+      latitude: null  # Auto-calculate from data
+      longitude: null # Auto-calculate from data
+    
+    # Initial zoom level (1-20, will auto-calculate if not specified)
+    zoom: null # Auto-calculate to fit all points
+    
+    # Map type: roadmap, satellite, hybrid, terrain
+    map_type: "roadmap"
+  
+  # Auto-fit map bounds to include all points
+  auto_fit_bounds: true
+  
+  # Map controls
+  controls:
+    zoom_control: true
+    street_view_control: true
+    fullscreen_control: true
+    map_type_control: true
+    scale_control: true
+
+# Marker Configuration
+markers:
+  # Default marker settings
+  default:
+    # Marker icon settings
+    icon:
+      # Built-in Google Maps icon colors: red, blue, green, yellow, purple, orange
+      color: "red"
+      # Custom icon URL (overrides color if specified)
+      url: null
+      # Icon size (pixels)
+      size:
+        width: 32
+        height: 32
+      # Icon anchor point (where the icon points to on the map)
+      anchor:
+        x: 16
+        y: 32
+    
+    # Marker label settings
+    label:
+      # Show sequence numbers on markers
+      show_sequence: true
+      # Custom label text (uses sequence number if null)
+      text: null
+      # Label text color
+      color: "white"
+      # Label font settings
+      font:
+        family: "Arial"
+        size: "12px"
+        weight: "bold"
+  
+  # Start marker (first point) - special styling
+  start:
+    icon:
+      color: "green"
+      url: null
+    label:
+      text: "START"
+      color: "white"
+  
+  # End marker (last point) - special styling  
+  end:
+    icon:
+      color: "red"
+      url: null
+    label:
+      text: "END"
+      color: "white"
+  
+  # Category-based marker colors (if category_column is specified)
+  categories:
+    default: "blue"
+    work: "blue"
+    home: "green"
+    travel: "purple"
+    meeting: "orange"
+    food: "yellow"
+
+# Path/Route Line Configuration
+path:
+  # Enable drawing lines between consecutive points
+  enabled: true
+  
+  # Line styling
+  style:
+    # Line color (hex color or named color)
+    color: "#FF0000"
+    # Line opacity (0.0 to 1.0)
+    opacity: 0.8
+    # Line weight in pixels
+    weight: 3
+    # Line stroke pattern: solid, dashed, dotted
+    stroke_pattern: "solid"
+  
+  # Animation settings
+  animation:
+    # Enable animated path drawing
+    enabled: false
+    # Animation speed (milliseconds between points)
+    speed: 1000
+    # Show direction arrows along the path
+    show_direction_arrows: true
+
+# Info Window Configuration
+info_windows:
+  # Enable clickable info windows on markers
+  enabled: true
+  
+  # Info window content template
+  template: |
+    <div style="font-family: Arial, sans-serif; min-width: 200px;">
+      <h3 style="margin: 0 0 10px 0; color: #333;">{{.Title}}</h3>
+      <p><strong>Time:</strong> {{.Timestamp}}</p>
+      <p><strong>Location:</strong> {{.Latitude}}, {{.Longitude}}</p>
+      {{if .Description}}<p><strong>Details:</strong> {{.Description}}</p>{{end}}
+      {{if .Category}}<p><strong>Category:</strong> {{.Category}}</p>{{end}}
+    </div>
+  
+  # Auto-open info window for start marker
+  auto_open_start: false
+  
+  # Maximum width for info windows
+  max_width: 300
+
+# Time-based Features
+timeline:
+  # Enable timeline controls
+  enabled: false
+  
+  # Timeline position: top, bottom, left, right
+  position: "bottom"
+  
+  # Show time range slider for filtering points
+  show_time_filter: false
+  
+  # Time format for display
+  time_format: "2006-01-02 15:04:05"
+  
+  # Group points by time intervals
+  grouping:
+    enabled: false
+    # Interval: hour, day, week, month
+    interval: "day"
+
+# Statistics and Analysis
+statistics:
+  # Show statistics panel
+  enabled: true
+  
+  # Calculate and display route statistics
+  show_distance: true      # Total distance traveled
+  show_duration: true      # Total time duration
+  show_speed: true         # Average speed
+  show_elevation: false    # Elevation profile (requires elevation data)
+  
+  # Distance units: metric (km), imperial (miles)
+  distance_units: "metric"
+
+# Data Processing Options
+processing:
+  # Remove duplicate points (same coordinates)
+  remove_duplicates: true
+  
+  # Minimum distance between points (meters) to avoid clustering
+  min_distance_filter: 10
+  
+  # Smooth the path by removing outlier points
+  smooth_path: false
+  
+  # Maximum allowed speed (km/h) to filter unrealistic jumps
+  max_speed_filter: 300
+  
+  # Time zone for timestamp parsing
+  timezone: "UTC"
+  
+  # Supported timestamp formats (tried in order)
+  timestamp_formats:
+    - "2006-01-02T15:04:05Z"        # ISO 8601 UTC
+    - "2006-01-02T15:04:05-07:00"   # ISO 8601 with timezone
+    - "2006-01-02 15:04:05"         # Simple datetime
+    - "01/02/2006 15:04:05"         # US format
+    - "02/01/2006 15:04:05"         # European format
+
+# HTML Template Configuration
+html_template:
+  # Custom CSS file to include
+  custom_css: null
+  
+  # Custom JavaScript file to include
+  custom_js: null
+  
+  # Include Bootstrap CSS for styling
+  include_bootstrap: true
+  
+  # Page theme: light, dark
+  theme: "light"
+  
+  # Responsive design for mobile devices
+  responsive: true
+
+# Logging Configuration
+logging:
+  # Log level: debug, info, warn, error
+  level: "info"
+  
+  # Log file path (empty for console only)
+  file: ""
+  
+  # Enable verbose processing information
+  verbose: false
+
+# Performance Options
+performance:
+  # Maximum number of points to process (0 = no limit)
+  max_points: 0
+  
+  # Batch size for processing large datasets
+  batch_size: 1000
+  
+  # Enable point clustering for large datasets
+  clustering:
+    enabled: false
+    # Minimum points before clustering kicks in
+    threshold: 1000
+    # Cluster radius in pixels
+    radius: 50

@@ -1,0 +1,110 @@
+timestamp,latitude,longitude,title,description
+2025-10-28T08:00:00Z,37.7749,-122.4194,Golden Gate Park Main Entrance,Starting our comprehensive San Francisco tour
+2025-10-28T08:03:00Z,37.7759,-122.4204,Japanese Tea Garden,Beautiful traditional garden in the park
+2025-10-28T08:06:00Z,37.7769,-122.4214,Conservatory of Flowers,Victorian glass greenhouse with exotic plants
+2025-10-28T08:09:00Z,37.7779,-122.4224,Stow Lake,Peaceful lake with paddle boats and walking paths
+2025-10-28T08:12:00Z,37.7789,-122.4234,Strawberry Hill,Small island in the middle of Stow Lake
+2025-10-28T08:15:00Z,37.7799,-122.4244,Buffalo Paddock,Home to a small herd of American bison
+2025-10-28T08:18:00Z,37.7809,-122.4254,Dutch Windmill,Historic windmill at the western edge of the park
+2025-10-28T08:21:00Z,37.7819,-122.4264,Ocean Beach,Wide sandy beach facing the Pacific Ocean
+2025-10-28T08:24:00Z,37.7829,-122.4274,Great Highway,Coastal road running along the beach
+2025-10-28T08:27:00Z,37.7839,-122.4284,Sunset District,Residential neighborhood with colorful houses
+2025-10-28T08:30:00Z,37.7849,-122.4094,Haight-Ashbury,Historic hippie neighborhood with vintage shops
+2025-10-28T08:33:00Z,37.7859,-122.4104,Painted Ladies,Famous Victorian houses featured in many movies
+2025-10-28T08:36:00Z,37.7869,-122.4114,Alamo Square Park,Park offering great views of the Painted Ladies
+2025-10-28T08:39:00Z,37.7879,-122.4124,Divisadero Street,Trendy street with restaurants and cafes
+2025-10-28T08:42:00Z,37.7889,-122.4134,Fillmore District,Historic jazz district with music venues
+2025-10-28T08:45:00Z,37.7899,-122.4144,Japantown,Cultural district with shops and restaurants
+2025-10-28T08:48:00Z,37.7909,-122.4154,Cathedral Hill,Neighborhood with St. Mary's Cathedral
+2025-10-28T08:51:00Z,37.7919,-122.4164,Pacific Heights,Upscale residential area with mansions
+2025-10-28T08:54:00Z,37.7929,-122.4174,Presidio Heights,Affluent neighborhood near the Presidio
+2025-10-28T08:57:00Z,37.7939,-122.4184,Laurel Heights,Quiet residential area with shops
+2025-10-28T09:00:00Z,37.7949,-122.3994,Castro District,Historic LGBTQ+ neighborhood with rainbow flags
+2025-10-28T09:03:00Z,37.7959,-122.4004,Mission Dolores,Historic Spanish mission founded in 1776
+2025-10-28T09:06:00Z,37.7969,-122.4014,Mission District,Vibrant Latino neighborhood with amazing street art
+2025-10-28T09:09:00Z,37.7979,-122.4024,Valencia Street,Hip street with bookstores and trendy restaurants
+2025-10-28T09:12:00Z,37.7989,-122.4034,24th Street BART,Public transit station in the Mission
+2025-10-28T09:15:00Z,37.7999,-122.4044,Bernal Heights,Hilltop neighborhood with panoramic city views
+2025-10-28T09:18:00Z,37.8009,-122.4054,Glen Park,Small village-like neighborhood with local shops
+2025-10-28T09:21:00Z,37.8019,-122.4064,Diamond Heights,Residential area with mid-century architecture
+2025-10-28T09:24:00Z,37.8029,-122.4074,Noe Valley,Family-friendly neighborhood with Victorian homes
+2025-10-28T09:27:00Z,37.8039,-122.4084,Twin Peaks,High vantage point with 360-degree city views
+2025-10-28T09:30:00Z,37.8049,-122.3894,SOMA (South of Market),Business and tech district with skyscrapers
+2025-10-28T09:33:00Z,37.8059,-122.3904,Yerba Buena Gardens,Urban park with museums and performance spaces
+2025-10-28T09:36:00Z,37.8069,-122.3914,Moscone Center,Large convention center hosting tech conferences
+2025-10-28T09:39:00Z,37.8079,-122.3924,Museum of Modern Art,Premier modern art museum (SFMOMA)
+2025-10-28T09:42:00Z,37.8089,-122.3934,Union Square,Main shopping district with department stores
+2025-10-28T09:45:00Z,37.8099,-122.3944,Chinatown Gate,Entrance to the largest Chinatown outside Asia
+2025-10-28T09:48:00Z,37.8109,-122.3954,Grant Avenue,Main tourist street in Chinatown
+2025-10-28T09:51:00Z,37.8119,-122.3964,Portsmouth Square,Historic square known as the Heart of Chinatown
+2025-10-28T09:54:00Z,37.8129,-122.3974,Stockton Street,Authentic local shopping street in Chinatown
+2025-10-28T09:57:00Z,37.8139,-122.3984,North Beach,Italian-American neighborhood with cafes
+2025-10-28T10:00:00Z,37.8149,-122.3794,Coit Tower,Art Deco tower with murals and city views
+2025-10-28T10:03:00Z,37.8159,-122.3804,Telegraph Hill,Steep hill crowned by Coit Tower
+2025-10-28T10:06:00Z,37.8169,-122.3814,Lombard Street,The most crooked street in the world
+2025-10-28T10:09:00Z,37.8179,-122.3824,Russian Hill,Upscale neighborhood with steep streets
+2025-10-28T10:12:00Z,37.8189,-122.3834,Polk Street,Trendy shopping and dining corridor
+2025-10-28T10:15:00Z,37.8044,-122.2711,Bay Bridge,Iconic bridge connecting SF to Oakland
+2025-10-28T10:18:00Z,37.8054,-122.2721,Treasure Island,Artificial island with great city views
+2025-10-28T10:21:00Z,37.8064,-122.2731,Bay Bridge East Span,Eastern section of the Bay Bridge
+2025-10-28T10:24:00Z,37.8074,-122.2741,Oakland Bay Trail,Waterfront trail on the Oakland side
+2025-10-28T10:27:00Z,37.8084,-122.2751,Jack London Square,Waterfront dining and entertainment district
+2025-10-28T10:30:00Z,37.7944,-122.2611,Embarcadero,Waterfront promenade with stunning bay views
+2025-10-28T10:33:00Z,37.7954,-122.2621,AT&T Park (Oracle Park),Home stadium of the San Francisco Giants
+2025-10-28T10:36:00Z,37.7964,-122.2631,Mission Bay,Developing neighborhood with new condos
+2025-10-28T10:39:00Z,37.7974,-122.2641,UCSF Mission Bay,University of California medical campus
+2025-10-28T10:42:00Z,37.7984,-122.2651,Dogpatch,Industrial neighborhood becoming trendy
+2025-10-28T10:45:00Z,37.7994,-122.2661,Potrero Hill,Sunny residential neighborhood with great views
+2025-10-28T10:48:00Z,37.8004,-122.2671,Showplace Square,Design district with furniture showrooms
+2025-10-28T10:51:00Z,37.8014,-122.2681,Bayview District,Diverse neighborhood undergoing gentrification
+2025-10-28T10:54:00Z,37.8024,-122.2691,Candlestick Point,Former home of the 49ers stadium
+2025-10-28T10:57:00Z,37.8034,-122.2701,Hunters Point,Waterfront community with industrial history
+2025-10-28T11:00:00Z,37.7844,-122.2511,Ferry Building,Historic marketplace with artisanal food vendors
+2025-10-28T11:03:00Z,37.7854,-122.2521,Embarcadero Plaza,Open space with farmers market
+2025-10-28T11:06:00Z,37.7864,-122.2531,Rincon Hill,High-rise residential neighborhood
+2025-10-28T11:09:00Z,37.7874,-122.2541,Folsom Street,Major street running through SOMA
+2025-10-28T11:12:00Z,37.7884,-122.2551,Harrison Street,Industrial street with warehouses and lofts
+2025-10-28T11:15:00Z,37.7894,-122.2561,Bryant Street,Another major SOMA thoroughfare
+2025-10-28T11:18:00Z,37.7904,-122.2571,16th Street Mission,Vibrant corridor in the Mission District
+2025-10-28T11:21:00Z,37.7914,-122.2581,Clarion Alley,Famous alley with constantly changing murals
+2025-10-28T11:24:00Z,37.7924,-122.2591,Women's Building,Community center with beautiful facade mural
+2025-10-28T11:27:00Z,37.7934,-122.2601,Balmy Alley,Another alley famous for its political murals
+2025-10-28T11:30:00Z,37.7744,-122.2411,Pier 39,Popular tourist destination with shops and restaurants
+2025-10-28T11:33:00Z,37.7754,-122.2421,Aquarium of the Bay,Underwater tunnel aquarium at Pier 39
+2025-10-28T11:36:00Z,37.7764,-122.2431,Sea Lions at Pier 39,Famous colony of California sea lions
+2025-10-28T11:39:00Z,37.7774,-122.2441,Pier 41,Ferry terminal for Alcatraz and Angel Island
+2025-10-28T11:42:00Z,37.7784,-122.2451,Pier 43,Working pier with fishing boats
+2025-10-28T11:45:00Z,37.7794,-122.2461,Pier 45,Historic pier with maritime exhibits
+2025-10-28T11:48:00Z,37.7804,-122.2471,Fisherman's Wharf Sign,Iconic neon sign marking the area
+2025-10-28T11:51:00Z,37.7814,-122.2481,Alioto's Restaurant,Famous seafood restaurant on the wharf
+2025-10-28T11:54:00Z,37.7824,-122.2491,Scoma's Restaurant,Another renowned waterfront dining spot
+2025-10-28T11:57:00Z,37.8055,-122.4194,Fisherman's Wharf,Historic fishing harbor turned tourist area
+2025-10-28T12:00:00Z,37.8065,-122.4204,Hyde Street Pier,Historic ships museum and maritime park
+2025-10-28T12:03:00Z,37.8075,-122.4214,Aquatic Park,Beach and park popular with swimmers
+2025-10-28T12:06:00Z,37.8085,-122.4224,Ghirardelli Square,Former chocolate factory turned shopping center
+2025-10-28T12:09:00Z,37.8095,-122.4234,Fort Mason,Former military base now cultural center
+2025-10-28T12:12:00Z,37.8105,-122.4244,Crissy Field,Large park with Golden Gate Bridge views
+2025-10-28T12:15:00Z,37.8115,-122.4254,Palace of Fine Arts,Beautiful Beaux-Arts monument and park
+2025-10-28T12:18:00Z,37.8125,-122.4264,Presidio,Large park and former military base
+2025-10-28T12:21:00Z,37.8135,-122.4274,Presidio Golf Course,Public golf course in the Presidio
+2025-10-28T12:24:00Z,37.8145,-122.4284,Golden Gate Bridge Welcome Center,Visitor center for the famous bridge
+2025-10-28T12:27:00Z,37.8155,-122.4294,Battery Spencer,Historic military battery with bridge views
+2025-10-28T12:30:00Z,37.8165,-122.4304,Golden Gate Bridge South Tower,Starting point of the famous span
+2025-10-28T12:33:00Z,37.8175,-122.4314,Golden Gate Bridge Mid-Span,Center of the iconic suspension bridge
+2025-10-28T12:36:00Z,37.8185,-122.4324,Golden Gate Bridge North Tower,Marin County side of the bridge
+2025-10-28T12:39:00Z,37.8195,-122.4334,Marin Headlands,Rolling hills with spectacular bay views
+2025-10-28T12:42:00Z,37.8205,-122.4344,Hawk Hill,Popular spot for watching migrating birds
+2025-10-28T12:45:00Z,37.8215,-122.4354,Point Bonita Lighthouse,Historic lighthouse on rocky promontory
+2025-10-28T12:48:00Z,37.8225,-122.4364,Rodeo Beach,Wild beach in the Marin Headlands
+2025-10-28T12:51:00Z,37.8235,-122.4374,Tennessee Valley,Hiking trail leading to secluded beach
+2025-10-28T12:54:00Z,37.8245,-122.4384,Muir Woods Approach,Road leading to the famous redwood forest
+2025-10-28T12:57:00Z,37.8255,-122.4394,Mill Valley,Charming Marin County town with mountain views
+2025-10-28T13:00:00Z,37.8265,-122.4404,Mount Tamalpais State Park,Mountain park with hiking trails and vistas
+2025-10-28T13:03:00Z,37.8275,-122.4414,Stinson Beach,Popular beach town north of the city
+2025-10-28T13:06:00Z,37.8285,-122.4424,Bolinas,Artistic coastal community known for privacy
+2025-10-28T13:09:00Z,37.8295,-122.4434,Point Reyes Station,Small town gateway to Point Reyes National Seashore
+2025-10-28T13:12:00Z,37.8305,-122.4444,Olema,Historic town in the Point Reyes area
+2025-10-28T13:15:00Z,37.8315,-122.4454,Bear Valley Visitor Center,Information center for Point Reyes
+2025-10-28T13:18:00Z,37.8325,-122.4464,Point Reyes Lighthouse,Historic lighthouse on dramatic coastline
+2025-10-28T13:21:00Z,37.8335,-122.4474,Drakes Beach,Sandy beach in Point Reyes National Seashore
+2025-10-28T13:24:00Z,37.8345,-122.4484,Chimney Rock,Scenic overlook and elephant seal viewing area
